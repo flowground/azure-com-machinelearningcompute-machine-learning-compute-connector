@@ -1,0 +1,24 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "pattern": "^[-\\w\\._\\(\\)]+$"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        },
+        "_skiptoken": {
+            "required": false,
+            "type": "string"
+        }
+    }
+}

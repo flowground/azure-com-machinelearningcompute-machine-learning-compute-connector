@@ -1,0 +1,473 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "pattern": "^[-\\w\\._\\(\\)]+$"
+        },
+        "clusterName": {
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "pattern": "^[a-zA-Z][-\\w\\._\\(\\)]+[a-zA-Z0-9]$"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "description": "Azure resource",
+                    "properties": {
+                        "id": {
+                            "description": "Specifies the resource ID.",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "location": {
+                            "description": "Specifies the location of the resource.",
+                            "type": "string",
+                            "x-ms-mutability": [
+                                "create",
+                                "read"
+                            ]
+                        },
+                        "name": {
+                            "description": "Specifies the name of the resource.",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "tags": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Contains resource tags defined as key/value pairs.",
+                            "type": "object"
+                        },
+                        "type": {
+                            "description": "Specifies the type of the resource.",
+                            "readOnly": true,
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ],
+                    "x-ms-azure-resource": true,
+                    "type": "object"
+                }
+            ],
+            "description": "Instance of an Azure ML Operationalization Cluster resource.",
+            "properties": {
+                "properties": {
+                    "description": "Properties of an operationalization cluster.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "appInsights": {
+                            "description": "AppInsights configuration.",
+                            "properties": {
+                                "resourceId": {
+                                    "description": "ARM resource ID of the App Insights.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "clusterType": {
+                            "description": "The cluster type.",
+                            "enum": [
+                                "ACS",
+                                "Local"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "ClusterType"
+                            }
+                        },
+                        "containerRegistry": {
+                            "description": "Container Registry properties.",
+                            "properties": {
+                                "resourceId": {
+                                    "description": "ARM resource ID of the Azure Container Registry used to store Docker images for web services in the cluster. If not provided one will be created. This cannot be changed once the cluster is created.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "containerService": {
+                            "description": "Parameters for the Azure Container Service cluster.",
+                            "properties": {
+                                "agentCount": {
+                                    "default": 2,
+                                    "description": "The number of agent nodes in the Container Service. This can be changed to scale the cluster.",
+                                    "maximum": 100,
+                                    "minimum": 1,
+                                    "type": "integer"
+                                },
+                                "agentVmSize": {
+                                    "default": "Standard_D3_v2",
+                                    "description": "The Azure VM size of the agent VM nodes. This cannot be changed once the cluster is created. This list is non exhaustive; refer to https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes for the possible VM sizes.",
+                                    "enum": [
+                                        "Standard_A0",
+                                        "Standard_A1",
+                                        "Standard_A2",
+                                        "Standard_A3",
+                                        "Standard_A4",
+                                        "Standard_A5",
+                                        "Standard_A6",
+                                        "Standard_A7",
+                                        "Standard_A8",
+                                        "Standard_A9",
+                                        "Standard_A10",
+                                        "Standard_A11",
+                                        "Standard_D1",
+                                        "Standard_D2",
+                                        "Standard_D3",
+                                        "Standard_D4",
+                                        "Standard_D11",
+                                        "Standard_D12",
+                                        "Standard_D13",
+                                        "Standard_D14",
+                                        "Standard_D1_v2",
+                                        "Standard_D2_v2",
+                                        "Standard_D3_v2",
+                                        "Standard_D4_v2",
+                                        "Standard_D5_v2",
+                                        "Standard_D11_v2",
+                                        "Standard_D12_v2",
+                                        "Standard_D13_v2",
+                                        "Standard_D14_v2",
+                                        "Standard_G1",
+                                        "Standard_G2",
+                                        "Standard_G3",
+                                        "Standard_G4",
+                                        "Standard_G5",
+                                        "Standard_DS1",
+                                        "Standard_DS2",
+                                        "Standard_DS3",
+                                        "Standard_DS4",
+                                        "Standard_DS11",
+                                        "Standard_DS12",
+                                        "Standard_DS13",
+                                        "Standard_DS14",
+                                        "Standard_GS1",
+                                        "Standard_GS2",
+                                        "Standard_GS3",
+                                        "Standard_GS4",
+                                        "Standard_GS5"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "modelAsString": true,
+                                        "name": "AgentVMSizeTypes"
+                                    }
+                                },
+                                "clusterFqdn": {
+                                    "description": "The FQDN of the cluster. ",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "masterCount": {
+                                    "default": 1,
+                                    "description": "The number of master nodes in the container service.",
+                                    "maximum": 5,
+                                    "minimum": 1,
+                                    "type": "integer"
+                                },
+                                "orchestratorProperties": {
+                                    "description": "Orchestrator specific properties",
+                                    "properties": {
+                                        "servicePrincipal": {
+                                            "description": "The Azure Service Principal used by Kubernetes",
+                                            "properties": {
+                                                "clientId": {
+                                                    "description": "The service principal client ID",
+                                                    "type": "string"
+                                                },
+                                                "secret": {
+                                                    "description": "The service principal secret. This is not returned in response of GET/PUT on the resource. To see this please call listKeys.",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "required": [
+                                                "clientId",
+                                                "secret"
+                                            ],
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object",
+                                    "x-ms-discriminator-value": "Kubernetes"
+                                },
+                                "orchestratorType": {
+                                    "description": "Type of orchestrator. It cannot be changed once the cluster is created.",
+                                    "enum": [
+                                        "Kubernetes",
+                                        "None"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "modelAsString": true,
+                                        "name": "OrchestratorType"
+                                    }
+                                },
+                                "systemServices": {
+                                    "description": "The system services deployed to the cluster",
+                                    "items": {
+                                        "description": "Information about a system service deployed in the cluster",
+                                        "properties": {
+                                            "publicIpAddress": {
+                                                "description": "The public IP address of the system service",
+                                                "readOnly": true,
+                                                "type": "string"
+                                            },
+                                            "systemServiceType": {
+                                                "description": "The system service type",
+                                                "enum": [
+                                                    "None",
+                                                    "ScoringFrontEnd",
+                                                    "BatchFrontEnd"
+                                                ],
+                                                "type": "string",
+                                                "x-ms-enum": {
+                                                    "modelAsString": true,
+                                                    "name": "SystemServiceType"
+                                                }
+                                            },
+                                            "version": {
+                                                "description": "The state of the system service",
+                                                "readOnly": true,
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "systemServiceType"
+                                        ],
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "required": [
+                                "orchestratorType"
+                            ],
+                            "type": "object"
+                        },
+                        "createdOn": {
+                            "description": "The date and time when the cluster was created.",
+                            "format": "date-time",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "The description of the cluster.",
+                            "type": "string"
+                        },
+                        "globalServiceConfiguration": {
+                            "description": "Contains global configuration for the web services in the cluster.",
+                            "additionalProperties": {
+                                "description": "Any additional configuration key-value pairs.",
+                                "type": "object"
+                            },
+                            "properties": {
+                                "autoScale": {
+                                    "description": "The auto-scale configuration",
+                                    "properties": {
+                                        "maxReplicas": {
+                                            "default": 100,
+                                            "description": "The maximum number of replicas for each service.",
+                                            "minimum": 1,
+                                            "type": "integer"
+                                        },
+                                        "minReplicas": {
+                                            "default": 1,
+                                            "description": "The minimum number of replicas for each service.",
+                                            "minimum": 1,
+                                            "type": "integer"
+                                        },
+                                        "refreshPeriodInSeconds": {
+                                            "description": "Refresh period in seconds.",
+                                            "type": "integer"
+                                        },
+                                        "status": {
+                                            "default": "Disabled",
+                                            "description": "If auto-scale is enabled for all services. Each service can turn it off individually.",
+                                            "enum": [
+                                                "Enabled",
+                                                "Disabled"
+                                            ],
+                                            "type": "string",
+                                            "x-ms-enum": {
+                                                "modelAsString": true,
+                                                "name": "Status"
+                                            }
+                                        },
+                                        "targetUtilization": {
+                                            "description": "The target utilization.",
+                                            "type": "number"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "etag": {
+                                    "description": "The configuration ETag for updates.",
+                                    "type": "string"
+                                },
+                                "serviceAuth": {
+                                    "description": "Optional global authorization keys for all user services deployed in cluster. These are used if the service does not have auth keys.",
+                                    "properties": {
+                                        "primaryAuthKeyHash": {
+                                            "description": "The primary auth key hash. This is not returned in response of GET/PUT on the resource.. To see this please call listKeys API.",
+                                            "type": "string"
+                                        },
+                                        "secondaryAuthKeyHash": {
+                                            "description": "The secondary auth key hash. This is not returned in response of GET/PUT on the resource.. To see this please call listKeys API.",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "primaryAuthKeyHash",
+                                        "secondaryAuthKeyHash"
+                                    ],
+                                    "type": "object"
+                                },
+                                "ssl": {
+                                    "description": "The SSL configuration properties",
+                                    "properties": {
+                                        "cert": {
+                                            "description": "The SSL cert data in PEM format.",
+                                            "type": "string"
+                                        },
+                                        "cname": {
+                                            "description": "The CName of the certificate.",
+                                            "type": "string"
+                                        },
+                                        "key": {
+                                            "description": "The SSL key data in PEM format. This is not returned in response of GET/PUT on the resource. To see this please call listKeys API.",
+                                            "type": "string"
+                                        },
+                                        "status": {
+                                            "default": "Enabled",
+                                            "description": "SSL status. Allowed values are Enabled and Disabled.",
+                                            "enum": [
+                                                "Enabled",
+                                                "Disabled"
+                                            ],
+                                            "type": "string",
+                                            "x-ms-enum": {
+                                                "modelAsString": true,
+                                                "name": "Status"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "modifiedOn": {
+                            "description": "The date and time when the cluster was last modified.",
+                            "format": "date-time",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "provisioningErrors": {
+                            "description": "List of provisioning errors reported by the resource provider.",
+                            "items": {
+                                "description": "Wrapper for error response to follow ARM guidelines.",
+                                "properties": {
+                                    "error": {
+                                        "description": "The error response.",
+                                        "properties": {
+                                            "code": {
+                                                "description": "Error code.",
+                                                "type": "string"
+                                            },
+                                            "details": {
+                                                "description": "An array of error detail objects.",
+                                                "items": {
+                                                    "description": "Error detail information.",
+                                                    "properties": {
+                                                        "code": {
+                                                            "description": "Error code.",
+                                                            "type": "string"
+                                                        },
+                                                        "message": {
+                                                            "description": "Error message.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "code",
+                                                        "message"
+                                                    ],
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "message": {
+                                                "description": "Error message.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "code",
+                                            "message"
+                                        ],
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "readOnly": true,
+                            "type": "array"
+                        },
+                        "provisioningState": {
+                            "description": "The provision state of the cluster. Valid values are Unknown, Updating, Provisioning, Succeeded, and Failed.",
+                            "enum": [
+                                "Unknown",
+                                "Updating",
+                                "Creating",
+                                "Deleting",
+                                "Succeeded",
+                                "Failed",
+                                "Canceled"
+                            ],
+                            "readOnly": true,
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "OperationStatus"
+                            }
+                        },
+                        "storageAccount": {
+                            "description": "Storage Account properties.",
+                            "properties": {
+                                "resourceId": {
+                                    "description": "ARM resource ID of the Azure Storage Account to store CLI specific files. If not provided one will be created. This cannot be changed once the cluster is created.",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "clusterType"
+                    ],
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

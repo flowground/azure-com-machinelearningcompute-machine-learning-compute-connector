@@ -1,0 +1,220 @@
+{
+    "title": "Machine Learning Compute Management Client",
+    "description": "These APIs allow end users to operate on Azure Machine Learning Compute resources. They support the following operations:<ul><li>Create or update a cluster</li><li>Get a cluster</li><li>Patch a cluster</li><li>Delete a cluster</li><li>Get keys for a cluster</li><li>Check if updates are available for system services in a cluster</li><li>Update system services in a cluster</li><li>Get all clusters in a resource group</li><li>Get all clusters in a subscription</li></ul>",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/machinelearningcompute-machineLearningCompute/2017-08-01-preview/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://management.azure.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "azure_auth": {
+                "label": "Azure Active Directory OAuth2 Flow",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "MachineLearningCompute_ListAvailableOperations": {
+            "main": "./lib/actions/MachineLearningCompute_ListAvailableOperations.js",
+            "title": "Gets all available operations.",
+            "description": "Gets all available operations.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/MachineLearningCompute_ListAvailableOperations.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OperationalizationClusters_ListBySubscriptionId": {
+            "main": "./lib/actions/OperationalizationClusters_ListBySubscriptionId.js",
+            "title": "Gets the operationalization clusters in the specified subscription.",
+            "description": "Gets the operationalization clusters in the specified subscription.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OperationalizationClusters_ListBySubscriptionId.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OperationalizationClusters_ListByResourceGroup": {
+            "main": "./lib/actions/OperationalizationClusters_ListByResourceGroup.js",
+            "title": "Gets the clusters in the specified resource group.",
+            "description": "Gets the clusters in the specified resource group.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OperationalizationClusters_ListByResourceGroup.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OperationalizationClusters_Delete": {
+            "main": "./lib/actions/OperationalizationClusters_Delete.js",
+            "title": "Deletes the specified cluster.",
+            "description": "Deletes the specified cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OperationalizationClusters_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OperationalizationClusters_Get": {
+            "main": "./lib/actions/OperationalizationClusters_Get.js",
+            "title": "Gets the operationalization cluster resource view. Note that the credentials are not returned by this call. Call ListKeys to get them.",
+            "description": "Gets the operationalization cluster resource view. Note that the credentials are not returned by this call. Call ListKeys to get them.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OperationalizationClusters_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OperationalizationClusters_Update": {
+            "main": "./lib/actions/OperationalizationClusters_Update.js",
+            "title": "The PATCH operation can be used to update only the tags for a cluster. Use PUT operation to update other properties.",
+            "description": "The PATCH operation can be used to update only the tags for a cluster. Use PUT operation to update other properties.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OperationalizationClusters_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OperationalizationClusters_CreateOrUpdate": {
+            "main": "./lib/actions/OperationalizationClusters_CreateOrUpdate.js",
+            "title": "Create or update an operationalization cluster.",
+            "description": "Create or update an operationalization cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OperationalizationClusters_CreateOrUpdate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OperationalizationClusters_CheckSystemServicesUpdatesAvailable": {
+            "main": "./lib/actions/OperationalizationClusters_CheckSystemServicesUpdatesAvailable.js",
+            "title": "Checks if updates are available for system services in the cluster.",
+            "description": "Checks if updates are available for system services in the cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OperationalizationClusters_CheckSystemServicesUpdatesAvailable.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OperationalizationClusters_ListKeys": {
+            "main": "./lib/actions/OperationalizationClusters_ListKeys.js",
+            "title": "Gets the credentials for the specified cluster such as Storage, ACR and ACS credentials. This is a long running operation because it fetches keys from dependencies.",
+            "description": "Gets the credentials for the specified cluster such as Storage, ACR and ACS credentials. This is a long running operation because it fetches keys from dependencies.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OperationalizationClusters_ListKeys.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OperationalizationClusters_UpdateSystemServices": {
+            "main": "./lib/actions/OperationalizationClusters_UpdateSystemServices.js",
+            "title": "Updates system services in a cluster.",
+            "description": "Updates system services in a cluster.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OperationalizationClusters_UpdateSystemServices.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

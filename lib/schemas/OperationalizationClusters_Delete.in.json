@@ -1,0 +1,31 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "pattern": "^[-\\w\\._\\(\\)]+$"
+        },
+        "clusterName": {
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "pattern": "^[a-zA-Z][-\\w\\._\\(\\)]+[a-zA-Z0-9]$"
+        },
+        "deleteAll": {
+            "required": false,
+            "type": "boolean"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
